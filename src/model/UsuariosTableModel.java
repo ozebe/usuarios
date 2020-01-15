@@ -41,7 +41,7 @@ public class UsuariosTableModel extends AbstractTableModel {
 
     public void setValueAt(Usuario aValue, int rowIndex) {
         Usuario usuario = usuarios.get(rowIndex);
-
+        
         usuario.setNome(aValue.getNome());
         usuario.setUsuario(aValue.getUsuario());
         usuario.setBloqueado(aValue.isBloqueado());
