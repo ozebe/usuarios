@@ -53,7 +53,7 @@ public class UsuariosEditaView extends javax.swing.JFrame {
         nomeUsuarioField.setText(usuario.getNome());
         usuarioField.setText(usuario.getUsuario());
         //verificar pois se não tiver data de nascimento não carrega
-        dataNascimentoField.setDate(Date.valueOf(usuario.getData_nasc()));
+        //dataNascimentoField.setDate(Date.valueOf(usuario.getData_nasc()));
 
         nivelAcesso.removeAllItems();
         for (int i = 0; i < niveis.size(); i++) {
@@ -97,7 +97,6 @@ public class UsuariosEditaView extends javax.swing.JFrame {
         usuarioField = new javax.swing.JTextField();
         redefinirSenhaBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         nivelAcesso = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
@@ -109,7 +108,6 @@ public class UsuariosEditaView extends javax.swing.JFrame {
         bloqueadoComboBox = new javax.swing.JComboBox();
         ativoComboBox = new javax.swing.JComboBox();
         salvarBtn = new javax.swing.JButton();
-        dataNascimentoField = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Editar Usuário");
@@ -149,9 +147,6 @@ public class UsuariosEditaView extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Senha:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Data nascimento:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Nível acesso:");
@@ -205,13 +200,12 @@ public class UsuariosEditaView extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(salvarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(idLabel)
@@ -222,8 +216,7 @@ public class UsuariosEditaView extends javax.swing.JFrame {
                     .addComponent(dataCriacaoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bloqueadoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ativoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dataNascimentoField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ativoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -245,11 +238,7 @@ public class UsuariosEditaView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(redefinirSenhaBtn))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(dataNascimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(nivelAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -274,7 +263,7 @@ public class UsuariosEditaView extends javax.swing.JFrame {
                     .addComponent(editadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salvarBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,26 +282,26 @@ public class UsuariosEditaView extends javax.swing.JFrame {
         try {
             connection = fabrica.getConnection(db.getDir(), user.getDir(), password.getDir());
             String sql = "UPDATE usuarios\n"
-                    + "SET nome = ?, usuario = ?, data_nasc = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?\n"
+                    + "SET nome = ?, usuario = ?,nivel = ?, bloqueado = ?, ativo = ?, editado = ?\n"
                     + "WHERE  usuarios.id = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, nomeUsuarioField.getText());
             
             pstmt.setString(2, usuarioField.getText());
 
-            java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
+            //java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
             
-            pstmt.setDate(3, sDate);
-            pstmt.setInt(4, nivelAcesso.getSelectedIndex() + 1);
+            //pstmt.setDate(3, sDate);
+            pstmt.setInt(3, nivelAcesso.getSelectedIndex() + 1);
 
-            pstmt.setBoolean(5, intToBool(bloqueadoComboBox.getSelectedIndex()));
-            pstmt.setBoolean(6, intToBool(ativoComboBox.getSelectedIndex()));
+            pstmt.setBoolean(4, intToBool(bloqueadoComboBox.getSelectedIndex()));
+            pstmt.setBoolean(5, intToBool(ativoComboBox.getSelectedIndex()));
 
             //SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             java.sql.Timestamp timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
             //formatador.format(timestamp)
-            pstmt.setTimestamp(7, timestamp); //String.valueOf(formatador.format(timestamp))
-            pstmt.setInt(8, usuario.getId());
+            pstmt.setTimestamp(6, timestamp); //String.valueOf(formatador.format(timestamp))
+            pstmt.setInt(7, usuario.getId());
             pstmt.executeUpdate();
             pstmt.close();
             connection.close();
@@ -346,8 +335,8 @@ public class UsuariosEditaView extends javax.swing.JFrame {
         usuario.setNivel(nivelAcesso.getSelectedIndex() + 1);
         usuario.setBloqueado(verificaBoolean(bloqueadoComboBox.getSelectedIndex()));
         usuario.setAtivo(verificaBoolean(ativoComboBox.getSelectedIndex()));
-        java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
-        usuario.setData_nasc(sDate.toString());
+        //java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
+        //usuario.setData_nasc(sDate.toString());
 
         RedefinirSenhaView redefinirSenha = new RedefinirSenhaView(usuario,true);
         redefinirSenha.setVisible(true);
@@ -424,7 +413,6 @@ public class UsuariosEditaView extends javax.swing.JFrame {
     private javax.swing.JComboBox ativoComboBox;
     private javax.swing.JComboBox bloqueadoComboBox;
     private javax.swing.JLabel dataCriacaoLabel;
-    private com.toedter.calendar.JDateChooser dataNascimentoField;
     private javax.swing.JLabel editadoLabel;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
@@ -432,7 +420,6 @@ public class UsuariosEditaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

@@ -366,9 +366,7 @@ public class UsuariosView extends javax.swing.JFrame {
             u.setAtivo(resultSet.getBoolean("ativo"));
             u.setBloqueado(resultSet.getBoolean("bloqueado"));
             u.setCriado(formataTimestamp(resultSet.getTimestamp("criado")));
-            u.setData_nasc(resultSet.getString("data_nasc"));
             u.setEditado(formataTimestamp(resultSet.getTimestamp("editado")));
-            //u.setEditado(resultSet.getString("editado"));
             u.setId(resultSet.getInt("id"));
             u.setNivel(resultSet.getInt("nivel"));
             u.setNome(resultSet.getString("nome"));
@@ -395,7 +393,7 @@ public class UsuariosView extends javax.swing.JFrame {
             u.setAtivo(resultSet.getBoolean("ativo"));
             u.setBloqueado(resultSet.getBoolean("bloqueado"));
             u.setCriado(formataTimestamp(resultSet.getTimestamp("criado")));
-            u.setData_nasc(resultSet.getString("data_nasc"));
+            
             u.setEditado(formataTimestamp(resultSet.getTimestamp("editado")));
             //u.setEditado(resultSet.getString("editado"));
             u.setId(resultSet.getInt("id"));
@@ -429,8 +427,6 @@ public class UsuariosView extends javax.swing.JFrame {
             u.setAtivo(resultSet.getBoolean("ativo"));
             u.setBloqueado(resultSet.getBoolean("bloqueado"));
             u.setCriado(formataTimestamp(resultSet.getTimestamp("criado")));
-            u.setData_nasc(resultSet.getString("data_nasc"));
-
             u.setEditado(formataTimestamp(resultSet.getTimestamp("editado")));
             u.setId(resultSet.getInt("id"));
             u.setNivel(resultSet.getInt("nivel"));
