@@ -62,8 +62,6 @@ public class UsuarioNovoView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         nivelAcesso = new javax.swing.JComboBox();
-        dataNascimentoField = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         definirSenhaBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -74,6 +72,7 @@ public class UsuarioNovoView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Criar usuário");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -102,9 +101,6 @@ public class UsuarioNovoView extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Nível acesso:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Data nascimento:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Senha:");
@@ -148,18 +144,16 @@ public class UsuarioNovoView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(usuarioField)
-                            .addComponent(definirSenhaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(definirSenhaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(nivelAcesso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bloqueadoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ativoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dataNascimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(salvarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -182,11 +176,7 @@ public class UsuarioNovoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(definirSenhaBtn))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(dataNascimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(nivelAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,7 +193,7 @@ public class UsuarioNovoView extends javax.swing.JFrame {
                         .addComponent(ativoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(salvarBtn)
-                .addGap(19, 19, 19))
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -225,20 +215,20 @@ public class UsuarioNovoView extends javax.swing.JFrame {
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
         try {
             connection = fabrica.getConnection(db.getDir(), user.getDir(), password.getDir());
-            String sql = "INSERT INTO usuarios(nome, usuario, senha, data_nasc, nivel, criado, bloqueado, ativo)\n"
+            String sql = "INSERT INTO usuarios(nome, usuario, senha, nivel, criado, bloqueado, ativo)\n"
                     + "VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, nomeUsuarioField.getText());
             pstmt.setString(2, usuarioField.getText());
             pstmt.setString(3, senha);
-            java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
-            pstmt.setDate(4, sDate);
-            pstmt.setInt(5, nivelAcesso.getSelectedIndex() + 1);
+            //java.sql.Date sDate = convertUtilToSql(dataNascimentoField.getDate());
+            //pstmt.setDate(4, sDate);
+            pstmt.setInt(4, nivelAcesso.getSelectedIndex() + 1);
             java.sql.Timestamp timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
             //formatador.format(timestamp)
-            pstmt.setTimestamp(6, timestamp); //String.valueOf(formatador.format(timestamp))
-            pstmt.setBoolean(7, intToBool(bloqueadoComboBox.getSelectedIndex()));
-            pstmt.setBoolean(8, intToBool(ativoComboBox.getSelectedIndex()));
+            pstmt.setTimestamp(5, timestamp); //String.valueOf(formatador.format(timestamp))
+            pstmt.setBoolean(6, intToBool(bloqueadoComboBox.getSelectedIndex()));
+            pstmt.setBoolean(7, intToBool(ativoComboBox.getSelectedIndex()));
             pstmt.executeUpdate();
             pstmt.close();
             connection.close();
@@ -332,12 +322,10 @@ public class UsuarioNovoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ativoComboBox;
     private javax.swing.JComboBox bloqueadoComboBox;
-    private com.toedter.calendar.JDateChooser dataNascimentoField;
     public static javax.swing.JButton definirSenhaBtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

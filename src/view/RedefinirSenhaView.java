@@ -150,30 +150,30 @@ public class RedefinirSenhaView extends javax.swing.JFrame {
                 if (verificaCamposSenhaAdmin()) {
                     connection = fabrica.getConnection(db.getDir(), user.getDir(), password.getDir());
                     String sql = "UPDATE usuarios\n"
-                            + "SET nome = ?, usuario = ?, data_nasc = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
+                            + "SET nome = ?, usuario = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
                             + "WHERE  usuarios.id = ?";
                     PreparedStatement pstmt = connection.prepareStatement(sql);
                     pstmt.setString(1, usuario.getNome());
                     pstmt.setString(2, usuario.getUsuario());
 
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date = formatter.parse(usuario.getData_nasc());
-                    java.sql.Date sDate = convertUtilToSql(date);
+                    //Date date = formatter.parse(usuario.getData_nasc());
+                    //java.sql.Date sDate = convertUtilToSql(date);
 
-                    pstmt.setDate(3, sDate);
-                    pstmt.setInt(4, nivelAcesso.getSelectedIndex() + 1);
+                   // pstmt.setDate(3, sDate);
+                    pstmt.setInt(3, nivelAcesso.getSelectedIndex() + 1);
 
-                    pstmt.setBoolean(5, usuario.isBloqueado());
-                    pstmt.setBoolean(6, usuario.isAtivo());
+                    pstmt.setBoolean(4, usuario.isBloqueado());
+                    pstmt.setBoolean(5, usuario.isAtivo());
 
                     // SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     java.sql.Timestamp timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
 
-                    pstmt.setTimestamp(7, timestamp);
+                    pstmt.setTimestamp(6, timestamp);
 
                     String novaSenha = new String(novaField.getPassword()).trim();
-                    pstmt.setString(8, MD5(novaSenha));
-                    pstmt.setInt(9, usuario.getId());
+                    pstmt.setString(7, MD5(novaSenha));
+                    pstmt.setInt(8, usuario.getId());
                     pstmt.executeUpdate();
                     pstmt.close();
                     connection.close();
@@ -184,7 +184,7 @@ public class RedefinirSenhaView extends javax.swing.JFrame {
                     this.dispose();
                 } else {
                 }
-            } catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException | IOException | ParseException ex) {
+            } catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException | IOException ex) {
                 Logger.getLogger(RedefinirSenhaView.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -192,30 +192,30 @@ public class RedefinirSenhaView extends javax.swing.JFrame {
                 if (verificaCamposSenha()) {
                     connection = fabrica.getConnection(db.getDir(), user.getDir(), password.getDir());
                     String sql = "UPDATE usuarios\n"
-                            + "SET nome = ?, usuario = ?, data_nasc = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
+                            + "SET nome = ?, usuario = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
                             + "WHERE  usuarios.id = ?";
                     PreparedStatement pstmt = connection.prepareStatement(sql);
                     pstmt.setString(1, usuario.getNome());
                     pstmt.setString(2, usuario.getUsuario());
 
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date = formatter.parse(usuario.getData_nasc());
-                    java.sql.Date sDate = convertUtilToSql(date);
+                   /// Date date = formatter.parse(usuario.getData_nasc());
+                    //java.sql.Date sDate = convertUtilToSql(date);
 
-                    pstmt.setDate(3, sDate);
-                    pstmt.setInt(4, nivelAcesso.getSelectedIndex() + 1);
+                    //pstmt.setDate(3, sDate);
+                    pstmt.setInt(3, nivelAcesso.getSelectedIndex() + 1);
 
-                    pstmt.setBoolean(5, usuario.isBloqueado());
-                    pstmt.setBoolean(6, usuario.isAtivo());
+                    pstmt.setBoolean(4, usuario.isBloqueado());
+                    pstmt.setBoolean(5, usuario.isAtivo());
 
                     // SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     java.sql.Timestamp timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
 
-                    pstmt.setTimestamp(7, timestamp);
+                    pstmt.setTimestamp(6, timestamp);
 
                     String novaSenha = new String(novaField.getPassword()).trim();
-                    pstmt.setString(8, MD5(novaSenha));
-                    pstmt.setInt(9, usuario.getId());
+                    pstmt.setString(7, MD5(novaSenha));
+                    pstmt.setInt(8, usuario.getId());
                     pstmt.executeUpdate();
                     pstmt.close();
                     connection.close();
@@ -226,7 +226,7 @@ public class RedefinirSenhaView extends javax.swing.JFrame {
                     this.dispose();
                 } else {
                 }
-            } catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException | IOException | ParseException ex) {
+            } catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException | IOException ex) {
                 Logger.getLogger(RedefinirSenhaView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -290,26 +290,26 @@ public class RedefinirSenhaView extends javax.swing.JFrame {
 //            System.out.println("nova data de nascimento : " + usuario.getData_nasc());
             connection = fabrica.getConnection(db.getDir(), user.getDir(), password.getDir());
             String sql = "UPDATE usuarios\n"
-                    + "SET nome = ?, usuario = ?, data_nasc = ?, nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
+                    + "SET nome = ?, usuario = ?,nivel = ?, bloqueado = ?, ativo = ?, editado = ?, senha = ?\n"
                     + "WHERE  usuarios.usuario = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getUsuario());
 
-            pstmt.setString(3, usuario.getData_nasc());
-            pstmt.setInt(4, nivelAcesso.getSelectedIndex() + 1);
+            //pstmt.setString(3, usuario.getData_nasc());
+            pstmt.setInt(3, nivelAcesso.getSelectedIndex() + 1);
 
-            pstmt.setInt(5, boolToInt(usuario.isBloqueado()));
-            pstmt.setInt(6, boolToInt(usuario.isAtivo()));
+            pstmt.setInt(4, boolToInt(usuario.isBloqueado()));
+            pstmt.setInt(5, boolToInt(usuario.isAtivo()));
 
             SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             java.sql.Timestamp timestamp = new java.sql.Timestamp(new java.util.Date().getTime());
 
-            pstmt.setString(7, String.valueOf(formatador.format(timestamp)));
+            pstmt.setString(6, String.valueOf(formatador.format(timestamp)));
 
             String novaSenha = new String(novaField.getPassword()).trim();
-            pstmt.setString(8, MD5(novaSenha));
-            pstmt.setString(9, usuario.getUsuario());
+            pstmt.setString(7, MD5(novaSenha));
+            pstmt.setString(8, usuario.getUsuario());
             pstmt.executeUpdate();
             pstmt.close();
             JOptionPane.showMessageDialog(null, "Usuário " + usuario.getUsuario() + " Atualizado!");
